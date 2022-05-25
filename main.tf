@@ -243,7 +243,10 @@ resource "aws_launch_configuration" "webserver-launch-config" {
   instance_type = "t2.micro"
   key_name = var.key_name
   security_groups = ["${aws_security_group.web_sg.id}"]
-  
+ 
+  lifecycle {
+    create_before_destroy = true
+  } 
   
   user_data = "${file("userdata.sh")}"
 }
